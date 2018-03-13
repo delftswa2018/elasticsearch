@@ -69,6 +69,7 @@ class BuildPlugin implements Plugin<Project> {
         }
         project.pluginManager.apply('java')
         project.pluginManager.apply('carrotsearch.randomized-testing')
+        project.pluginManager.apply('jacoco')
         // these plugins add lots of info to our jars
         configureJars(project) // jar config must be added before info broker
         project.pluginManager.apply('nebula.info-broker')

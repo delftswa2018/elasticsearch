@@ -20,12 +20,13 @@ import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.util.PatternFilterable
 import org.gradle.api.tasks.util.PatternSet
+import org.gradle.api.tasks.testing.Test
 import org.gradle.internal.logging.progress.ProgressLoggerFactory
 import org.gradle.util.ConfigureUtil
 
 import javax.inject.Inject
 
-class RandomizedTestingTask extends DefaultTask {
+class RandomizedTestingTask extends Test {
 
     // TODO: change to "executable" to match gradle test params?
     @Optional
@@ -100,52 +101,63 @@ class RandomizedTestingTask extends DefaultTask {
         throw new UnsupportedOperationException()
     }
 
-    void jvmArgs(Iterable<String> arguments) {
+    Test jvmArgs(Iterable<String> arguments) {
         jvmArgs.addAll(arguments)
+        return this
     }
 
     void jvmArg(String argument) {
         jvmArgs.add(argument)
     }
 
-    void systemProperty(String property, Object value) {
+    Test systemProperty(String property, Object value) {
         systemProperties.put(property, value)
+        return this
     }
 
-    void environment(String key, Object value) {
+    Test environment(String key, Object value) {
         environmentVariables.put(key, value)
+        return this
     }
 
-    void include(String... includes) {
+    Test include(String... includes) {
         this.patternSet.include(includes);
+        return this;
     }
 
-    void include(Iterable<String> includes) {
+    Test include(Iterable<String> includes) {
         this.patternSet.include(includes);
+        return this;
     }
 
-    void include(Spec<FileTreeElement> includeSpec) {
+    Test include(Spec<FileTreeElement> includeSpec) {
         this.patternSet.include(includeSpec);
+        return this;
     }
 
-    void include(Closure includeSpec) {
+    Test include(Closure includeSpec) {
         this.patternSet.include(includeSpec);
+        return this;
     }
 
-    void exclude(String... excludes) {
+    Test exclude(String... excludes) {
         this.patternSet.exclude(excludes);
+        return this;
     }
 
-    void exclude(Iterable<String> excludes) {
+    Test exclude(Iterable<String> excludes) {
         this.patternSet.exclude(excludes);
+        return this;
     }
 
-    void exclude(Spec<FileTreeElement> excludeSpec) {
+    Test exclude(Spec<FileTreeElement> excludeSpec) {
         this.patternSet.exclude(excludeSpec);
+        return this;
     }
 
-    void exclude(Closure excludeSpec) {
+    Test exclude(Closure excludeSpec) {
         this.patternSet.exclude(excludeSpec);
+        return this;
     }
 
     @Input
